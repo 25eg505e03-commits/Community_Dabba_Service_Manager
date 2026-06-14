@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://community-dabba-service-manager.onrender.com"
 
 // Create one reusable Axios connection
 const api = axios.create({
