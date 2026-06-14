@@ -1,0 +1,11 @@
+###
+POST http://localhost:5000/api/meals
+Content-Type: application/json
+
+{
+  "mealName": " Veg Thali",
+  "description": "Rice, Dal, Sabji, Roti",
+  "quantity": 5,
+  "location": "Sector 1",
+  "donorName": "raju"
+}
