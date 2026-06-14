@@ -9,3 +9,53 @@ Content-Type: application/json
   "location": "Sector 1",
   "donorName": "raju"
 }
+
+###
+POST https://community-dabba-service-manager.onrender.com/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "xyz",
+  "email": "xyz@gmail.com",
+  "password": "123456",
+  "phone":"123456789",
+  "role":"donor"
+}
+
+###
+POST https://community-dabba-service-manager.onrender.com/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "xyz@gmail.com",
+  "password": "123456"
+}
+
+###
+POST https://community-dabba-service-manager.onrender.com/api/meals
+Content-Type: application/json
+
+{
+  "mealName": "Rice",
+  "description": "Fresh rice",
+  "quantity": 10,
+  "location": "Vijayawada",
+  "donorName": "hii"
+}
+
+###
+GET https://community-dabba-service-manager.onrender.com/api/meals
+Authorization: Bearer {{ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMmU0OGQ1NDk2YzZmM2RhZjY4NWZkYSIsIm5hbWUiOiJ4eXoiLCJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJyb2xlIjoiZG9ub3IiLCJpYXQiOjE3ODE0MTgzODAsImV4cCI6MTc4MjAyMzE4MH0.xmOD9H7Shbj1XBTAODuk8TR2D4LyvLvbiWKbG8piN14"}}
+
+###
+POST https://community-dabba-service-manager.onrender.com/api/meals
+Content-Type: application/json
+Authorization: Bearer {{ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMmU0OGQ1NDk2YzZmM2RhZjY4NWZkYSIsIm5hbWUiOiJ4eXoiLCJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJyb2xlIjoiZG9ub3IiLCJpYXQiOjE3ODE0MTgzODAsImV4cCI6MTc4MjAyMzE4MH0.xmOD9H7Shbj1XBTAODuk8TR2D4LyvLvbiWKbG8piN14"}}
+
+{
+  "mealName": "Veg Biryani",
+  "description": "Fresh homemade meal",
+  "quantity": 20,
+  "location": "Vijayawada",
+  "donorName": "xyz"
+}

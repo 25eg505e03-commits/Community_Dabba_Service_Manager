@@ -27,7 +27,7 @@ api.interceptors.request.use(
 // REGISTER USER
 export async function registerUser(name, email, password, phone, role) {
   try {
-    const response = await api.post("/auth/register", {
+    const response = await api.post("/api/auth/register", {
       name,
       email,
       password,
@@ -53,7 +53,7 @@ export async function registerUser(name, email, password, phone, role) {
 // LOGIN USER
 export async function loginUser(email, password) {
   try {
-    const response = await axios.post(`${API_URL}/auth/login`, {
+    const response = await axios.post(`${API_URL}/api/auth/login`, {
       email,
       password
     });
@@ -88,7 +88,7 @@ export async function addMeal(
   donorName
 ) {
   try {
-    const response = await api.post("/meals", {
+    const response = await api.post("/api/meals", {
       mealName,
       description,
       quantity: Number(quantity),
@@ -111,7 +111,7 @@ export async function addMeal(
 // GET MEALS
 export async function getMeals() {
   try {
-    const response = await api.get("/meals");
+    const response = await api.get("/api/meals");
     return response.data;
   } catch (error) {
     console.error("Error fetching meals:", error);
@@ -122,7 +122,7 @@ export async function getMeals() {
 // ADD SUBSCRIPTION
 export async function addSubscription(name, email, area) {
   try {
-    const response = await api.post("/subscriptions", {
+    const response = await api.post("/api/subscriptions", {
       name,
       email,
       area,
@@ -148,7 +148,7 @@ export async function addSubscription(name, email, area) {
 // GET CURRENT USER'S SUBSCRIPTIONS
 export async function getSubscriptions() {
   try {
-    const response = await api.get("/subscriptions");
+    const response = await api.get("/api/subscriptions");
     return response.data;
   } catch (error) {
     console.error("Error fetching subscriptions:", error);
@@ -159,7 +159,7 @@ export async function getSubscriptions() {
 // ADD FEEDBACK
 export async function addFeedback(name, rating, message) {
   try {
-    const response = await api.post("/feedback", {
+    const response = await api.post("/api/feedback", {
       name,
       rating,
       message,
@@ -183,7 +183,7 @@ export async function addFeedback(name, rating, message) {
 
 export async function getFeedback() {
   try {
-    const response = await api.get("/feedback");
+    const response = await api.get("/api/feedback");
     return response.data;
   } catch (error) {
     console.error("Error fetching feedback:", error);
@@ -193,7 +193,7 @@ export async function getFeedback() {
 
 export async function requestMeal(mealId) {
   try {
-    const response = await api.post(`/requests/${mealId}`);
+    const response = await api.post(`/api/requests/${mealId}`);
     return { success: true, message: response.data.message };
   } catch (error) {
     return {
@@ -205,7 +205,7 @@ export async function requestMeal(mealId) {
 
 export async function getMyMealRequests() {
   try {
-    const response = await api.get("/requests");
+    const response = await api.get("/api/requests");
     return { success: true, requests: response.data };
   } catch (error) {
     return {
@@ -218,7 +218,7 @@ export async function getMyMealRequests() {
 
 export async function updateMealRequest(requestId, status) {
   try {
-    const response = await api.patch(`/requests/${requestId}/status`, {
+    const response = await api.patch(`/api/requests/${requestId}/status`, {
       status
     });
 
