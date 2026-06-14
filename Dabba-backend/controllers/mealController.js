@@ -22,7 +22,7 @@ const addMeal = async (req, res) => {
     }
 
     const newMeal = await Meal.create({
-      donor: req.user.id,
+      donor: req.user._id,
       mealName,
       description,
       quantity,
