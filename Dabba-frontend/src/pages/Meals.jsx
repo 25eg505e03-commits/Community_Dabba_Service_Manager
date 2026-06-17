@@ -84,7 +84,8 @@ function Meals() {
         description: "",
         quantity: "",
         location: "",
-        donorName: user.name || ""
+        donorName: user.name || "",
+        expiryTime: ""
       });
 
       await loadMeals();

@@ -14,7 +14,7 @@ function MealCard({ meal, isReceiver, onRequest }) {
       {isReceiver && (
         <button
           className="request-meal-btn"
-          disabled={false}
+          disabled={meal.quantity < 1}
           onClick={() => onRequest(meal._id)}
         >
           {meal.quantity < 1 ? "Not Available" : "Request Meal"}

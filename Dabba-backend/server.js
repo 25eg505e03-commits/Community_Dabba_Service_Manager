@@ -1,4 +1,3 @@
-// This is the main file that starts our backend server
 const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
@@ -6,7 +5,6 @@ const connectDB = require('./config/db')
 const http = require("http");
 const { Server } = require("socket.io");
 
-// Load environment variables from .env file
 dotenv.config()
 
 // Connect to MongoDB
@@ -45,6 +43,7 @@ const mealRoutes = require('./routes/mealRoutes')
 const subscriptionRoutes = require('./routes/subscriptionRoutes')
 const feedbackRoutes = require('./routes/feedbackRoutes')
 const requestRoutes = require('./routes/requestRoutes')
+const dashboardRoutes = require('./routes/dashboradRoutes')
 
 // Use routes
 app.use('/api/auth', authRoutes)
@@ -52,6 +51,7 @@ app.use('/api/meals', mealRoutes)
 app.use('/api/subscriptions', subscriptionRoutes)
 app.use('/api/feedback', feedbackRoutes)
 app.use('/api/requests', requestRoutes)
+app.use('/api/dashboard', dashboardRoutes)
 
 // Simple test route
 app.get('/', (req, res) => {
