@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MealCard from "../components/MealCard";
-import { addMeal, getMeals, requestMeal } from "../services/api";
+import { addMeal, getMeals, requestMeal,deleteMeal } from "../services/api";
 
 function Meals() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -111,7 +111,17 @@ function Meals() {
 
     await loadMeals();
   }
+  async function handleDelete(mealId) {
+  const confirmed = window.confirm("Delete this meal? This cannot be undone.");
+  if (!confirmed) return;
 
+  const result = await deleteMeal(mealId);
+  setMessage(result.message);
+
+  if (result.success) {
+    await loadMeals();
+  }
+}
   return (
     <div className="meals-container">
       {isDonor ? (
@@ -209,15 +219,17 @@ function Meals() {
         ) : (
           filteredMeals.map((meal) => (
             <MealCard
-              key={meal._id}
-              isReceiver={!isDonor}
-              onRequest={handleRequest}
-              meal={{
-                ...meal,
-                name: meal.mealName,
-                type: meal.location
-              }}
-            />
+                key={meal._id}
+                isReceiver={!isDonor}
+                onRequest={handleRequest}
+                isOwner={isDonor && meal.donor === user.id}
+                onDelete={handleDelete}
+                meal={{
+                  ...meal,
+                  name: meal.mealName,
+                  type: meal.location
+                }}
+              />
           ))
         )}
       </div>

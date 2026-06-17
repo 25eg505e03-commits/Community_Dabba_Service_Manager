@@ -128,6 +128,19 @@ export async function getMeals() {
   }
 }
 
+//DELETE MEALS
+export async function deleteMeal(mealId) {
+  try {
+    const response = await api.delete(`/api/meals/${mealId}`);
+    return { success: true, message: response.data.message };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Could not delete meal"
+    };
+  }
+}
+
 // ADD SUBSCRIPTION
 export async function addSubscription(name, email, area) {
   try {
