@@ -85,7 +85,8 @@ export async function addMeal(
   description,
   quantity,
   location,
-  donorName
+  donorName,
+  expiryTime
 ) {
   try {
     const response = await api.post("/api/meals", {
@@ -93,7 +94,9 @@ export async function addMeal(
       description,
       quantity: Number(quantity),
       location,
-      donorName
+      donorName,
+      expiryTime
+
     });
 
     return {

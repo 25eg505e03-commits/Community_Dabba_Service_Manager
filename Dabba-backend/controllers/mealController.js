@@ -4,17 +4,19 @@ const Meal = require('../models/Meal')
 // GET ALL MEALS
 const getMeals = async (req, res) => {
   try {
-    const meals = await Meal.find()
-    res.status(200).json(meals)
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message })
-  }
-}
+    const meals = await Meal.find({
+      expiryTime: { $gt: new Date() }
+    });
 
+    res.json(meals);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 // ADD A NEW MEAL
 const addMeal = async (req, res) => {
   try {
-    const { mealName, description, quantity, location, donorName } = req.body
+    const { mealName, description, quantity, location, donorName,expiryTime } = req.body
 
     // Simple validation
     if (!mealName || !description || !quantity || !location || !donorName) {
@@ -27,7 +29,8 @@ const addMeal = async (req, res) => {
       description,
       quantity,
       location,
-      donorName: req.user.name
+      donorName: req.user.name,
+      expiryTime
     })
 
     res.status(201).json({ message: 'Meal added successfully', meal: newMeal })

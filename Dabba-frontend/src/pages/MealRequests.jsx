@@ -3,6 +3,8 @@ import {
   getMyMealRequests,
   updateMealRequest
 } from "../services/api";
+import socket from "../services/socket";
+
 
 function MealRequests() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -20,8 +22,26 @@ function MealRequests() {
   }
 
   useEffect(() => {
+  loadRequests();
+
+  socket.on("newRequest", () => {
     loadRequests();
-  }, []);
+  });
+
+  socket.on("requestAccepted", () => {
+    loadRequests();
+  });
+
+  socket.on("requestRejected", () => {
+    loadRequests();
+  });
+
+  return () => {
+    socket.off("newRequest");
+    socket.off("requestAccepted");
+    socket.off("requestRejected");
+  };
+}, []);
 
   async function reviewRequest(requestId, status) {
     const result = await updateMealRequest(requestId, status);
@@ -81,7 +101,12 @@ function MealRequests() {
                     {otherPerson?.phone && (
                       <a href={`tel:${otherPerson.phone}`}>Call</a>
                     )}
-                    <a href={`mailto:${otherPerson?.email}`}>Send Email</a>
+                    <a href={`https://mail.google.com/mail/?view=cm&to=${otherPerson?.email}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      >
+                       Send Email
+                      </a>
                   </div>
                 )}
 

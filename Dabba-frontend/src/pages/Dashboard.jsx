@@ -21,7 +21,7 @@ function Dashboard() {
       const [meals, subscriptions, feedback] = await Promise.all([
         getMeals(),
         getSubscriptions(),
-        getFeedback()
+        getFeedback(),
       ])
 
       setTotalMeals(meals.length)

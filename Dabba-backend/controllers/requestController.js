@@ -63,7 +63,8 @@ const createRequest = async (req, res) => {
       donor: meal.donor,
       receiver: req.user.id
     })
-
+    const io = req.app.get("io");
+    io.emit("newRequest", request);
     res.status(201).json({
       message: 'Meal request sent to the donor',
       request
@@ -135,6 +136,16 @@ const updateRequestStatus = async (req, res) => {
 
     request.status = status
     await request.save()
+
+    const io = req.app.get("io")
+
+      if (status === "Accepted") {
+        io.emit("requestAccepted", request)
+      }
+
+      if (status === "Rejected") {
+        io.emit("requestRejected", request)
+      }
 
     const populatedRequest = await populateRequest(
       MealRequest.findById(request._id)

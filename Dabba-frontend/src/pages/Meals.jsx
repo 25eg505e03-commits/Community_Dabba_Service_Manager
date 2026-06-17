@@ -8,13 +8,15 @@ function Meals() {
 
   const [meals, setMeals] = useState([]);
   const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");
 
   const [form, setForm] = useState({
     mealName: "",
     description: "",
     quantity: "",
     location: "",
-    donorName: user.name || ""
+    donorName: user.name || "",
+    expiryTime: ""
   });
 
   async function loadMeals() {
@@ -25,6 +27,10 @@ function Meals() {
   useEffect(() => {
     loadMeals();
   }, []);
+
+  const filteredMeals = meals.filter((meal) =>
+    meal.mealName.toLowerCase().includes(search.toLowerCase())
+  );
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -49,7 +55,8 @@ function Meals() {
       !form.description ||
       !form.quantity ||
       !form.location ||
-      !form.donorName
+      !form.donorName ||
+      !form.expiryTime
     ) {
       setMessage("Please fill all fields.");
       return;
@@ -65,7 +72,8 @@ function Meals() {
       form.description,
       form.quantity,
       form.location,
-      form.donorName
+      form.donorName,
+      form.expiryTime
     );
 
     if (result.success) {
@@ -86,14 +94,16 @@ function Meals() {
   }
 
   async function handleRequest(mealId) {
-  const result = await requestMeal(mealId);
+    const result = await requestMeal(mealId);
 
-  console.log(result);
+    console.log(result);
 
-  alert(result.message);
+    alert(result.message);
 
-  setMessage(result.message);
-}
+    setMessage(result.message);
+
+    await loadMeals();
+  }
 
   return (
     <div className="meals-container">
@@ -149,7 +159,13 @@ function Meals() {
               onChange={handleChange}
               placeholder="Enter donor name"
             />
-
+            <label>Expiry Time</label>
+            <input
+            type="datetime-local"
+            name="expiryTime"
+            value={form.expiryTime}
+            onChange={handleChange}
+            />
             <button type="submit">Add Meal</button>
           </form>
         </div>
@@ -165,11 +181,26 @@ function Meals() {
         Food shared by people in our community.
       </p>
 
+      <input
+        type="text"
+        placeholder="🔍 Search meals..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          padding: "10px",
+          marginBottom: "20px",
+          borderRadius: "6px",
+          border: "1px solid #ccc"
+        }}
+      />
+
       <div className="meals-list">
-        {meals.length === 0 ? (
-          <p className="empty-message">No meals have been added yet.</p>
+        {filteredMeals.length === 0 ? (
+          <p className="empty-message">No meals found.</p>
         ) : (
-          meals.map((meal) => (
+          filteredMeals.map((meal) => (
             <MealCard
               key={meal._id}
               isReceiver={!isDonor}
