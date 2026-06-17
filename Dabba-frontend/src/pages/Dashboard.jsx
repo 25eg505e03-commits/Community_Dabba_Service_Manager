@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getMeals, getSubscriptions, getFeedback } from '../services/api'
+import { getMeals, getFeedback } from '../services/api'
 
 function Dashboard() {
   const [userName, setUserName] = useState('')
   const [totalMeals, setTotalMeals] = useState(0)
-  const [totalSubscribers, setTotalSubscribers] = useState(0)
   const [totalFeedback, setTotalFeedback] = useState(0)
 
   const navigate = useNavigate()
@@ -18,16 +17,12 @@ function Dashboard() {
     }
 
     async function loadOverview() {
-      const [meals, subscriptions, feedback] = await Promise.all([
+      const [meals, feedback] = await Promise.all([
         getMeals(),
-        getSubscriptions(),
         getFeedback(),
       ])
 
       setTotalMeals(meals.length)
-      setTotalSubscribers(
-        subscriptions.filter((item) => item.status === 'Active').length
-      )
       setTotalFeedback(feedback.length)
     }
 
@@ -64,11 +59,6 @@ function Dashboard() {
         <div className="stat-box">
           <h3>Total Meals</h3>
           <p>{totalMeals}</p>
-        </div>
-
-        <div className="stat-box">
-          <h3>Total Subscribers</h3>
-          <p>{totalSubscribers}</p>
         </div>
 
         <div className="stat-box">

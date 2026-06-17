@@ -28,7 +28,6 @@ function Navbar() {
             <Link to="/dashboard" className={getClass('/dashboard')}>Dashboard</Link>
             <Link to="/meals" className={getClass('/meals')}>Meals</Link>
             <Link to="/requests" className={getClass('/requests')}>Requests</Link>
-            <Link to="/subscription" className={getClass('/subscription')}>Subscription</Link>
             <Link to="/feedback" className={getClass('/feedback')}>Feedback</Link>
             <button className="logout-btn" onClick={handleLogout}>Logout</button>
           </>

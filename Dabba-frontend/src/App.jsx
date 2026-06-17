@@ -5,7 +5,6 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Meals from './pages/Meals'
-import Subscription from './pages/Subscription'
 import Feedback from './pages/Feedback'
 import ProtectedRoute from './components/ProtectedRoute'
 import MealRequests from './pages/MealRequests'
@@ -22,7 +21,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/meals" element={<Meals />} />
-          <Route path="/subscription" element={<Subscription />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/requests" element={<MealRequests />} />
         </Route>

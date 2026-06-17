@@ -40,7 +40,6 @@ app.use(express.json()) // allows server to read JSON data from request body
 // Import routes
 const authRoutes = require('./routes/authRoutes')
 const mealRoutes = require('./routes/mealRoutes')
-const subscriptionRoutes = require('./routes/subscriptionRoutes')
 const feedbackRoutes = require('./routes/feedbackRoutes')
 const requestRoutes = require('./routes/requestRoutes')
 const dashboardRoutes = require('./routes/dashboradRoutes')
@@ -48,7 +47,6 @@ const dashboardRoutes = require('./routes/dashboradRoutes')
 // Use routes
 app.use('/api/auth', authRoutes)
 app.use('/api/meals', mealRoutes)
-app.use('/api/subscriptions', subscriptionRoutes)
 app.use('/api/feedback', feedbackRoutes)
 app.use('/api/requests', requestRoutes)
 app.use('/api/dashboard', dashboardRoutes)

@@ -141,42 +141,8 @@ export async function deleteMeal(mealId) {
   }
 }
 
-// ADD SUBSCRIPTION
-export async function addSubscription(name, email, area) {
-  try {
-    const response = await api.post("/api/subscriptions", {
-      name,
-      email,
-      area,
-    });
 
-    return {
-      success: true,
-      message:
-        response.data.message ||
-        "Subscription added successfully",
-      subscription: response.data.subscription,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      message:
-        error.response?.data?.message ||
-        "Could not add subscription",
-    };
-  }
-}
 
-// GET CURRENT USER'S SUBSCRIPTIONS
-export async function getSubscriptions() {
-  try {
-    const response = await api.get("/api/subscriptions");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching subscriptions:", error);
-    return [];
-  }
-}
 
 // ADD FEEDBACK
 export async function addFeedback(name, rating, message) {
