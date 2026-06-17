@@ -1,13 +1,14 @@
 ###
 POST http://localhost:5000/api/meals
 Content-Type: application/json
+Authorization: Bearer {{"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMzI2YjkyYjgxN2FhZWUxMGZmNDRmYyIsIm5hbWUiOiJoZWVyIiwiZW1haWwiOiJoZWVyQGdtYWlsLmNvbSIsInJvbGUiOiJkb25vciIsImlhdCI6MTc4MTY4OTI1OCwiZXhwIjoxNzgyMjk0MDU4fQ.3yDm5mV1_vXhdkUfWntFW5CXFoEDQ02uJGPGLLQXtMo"}}
 
 {
   "mealName": " Veg Thali",
-  "description": "Rice, Dal, Sabji, Roti",
+  "description": "Rice, Dal",
   "quantity": 5,
-  "location": "Sector 1",
-  "donorName": "raju"
+  "location": "nagole",
+  "donorName": "heer"
 }
 
 ###
@@ -15,9 +16,9 @@ POST https://community-dabba-service-manager.onrender.com/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "xyz",
-  "email": "xyz@gmail.com",
-  "password": "123456",
+  "name": "heer",
+  "email": "heer@gmail.com",
+  "password": "12345",
   "phone":"123456789",
   "role":"donor"
 }
@@ -27,8 +28,8 @@ POST https://community-dabba-service-manager.onrender.com/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "xyz@gmail.com",
-  "password": "123456"
+  "email": "heer@gmail.com",
+  "password": "12345"
 }
 
 ###

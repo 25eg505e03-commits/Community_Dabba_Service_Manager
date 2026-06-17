@@ -26,6 +26,12 @@ function Meals() {
 
   useEffect(() => {
     loadMeals();
+
+    // Re-fetch every 30 seconds so meals that just expired
+    // disappear from the list without needing a page reload.
+    const intervalId = setInterval(loadMeals, 30000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const filteredMeals = meals.filter((meal) =>

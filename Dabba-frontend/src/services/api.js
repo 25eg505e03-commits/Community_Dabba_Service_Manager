@@ -95,7 +95,13 @@ export async function addMeal(
       quantity: Number(quantity),
       location,
       donorName,
-      expiryTime
+      // expiryTime comes from a <input type="datetime-local"> field as a
+      // plain string with no timezone info (e.g. "2026-06-17T14:30").
+      // Parsing it with `new Date()` here, in the browser, uses the
+      // donor's actual local timezone. Converting to ISO (UTC) before
+      // sending means the server stores the correct absolute instant
+      // regardless of which timezone the server itself runs in.
+      expiryTime: new Date(expiryTime).toISOString()
 
     });
 
