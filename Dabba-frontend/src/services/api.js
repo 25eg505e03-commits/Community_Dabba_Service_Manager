@@ -14,11 +14,9 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => Promise.reject(error)
@@ -34,7 +32,6 @@ export async function registerUser(name, email, password, phone, role) {
       phone,
       role
     });
-
     return {
       success: true,
       message: response.data.message || "Registration successful",
@@ -43,24 +40,20 @@ export async function registerUser(name, email, password, phone, role) {
   } catch (error) {
     return {
       success: false,
-      message:
-        error.response?.data?.message ||
-        "Something went wrong during registration",
+      message: error.response?.data?.message || "Something went wrong during registration",
     };
   }
 }
 
-// LOGIN USER
+// LOGIN USER 
 export async function loginUser(email, password) {
   try {
-    const response = await axios.post(`/api/auth/login`, {
+    const response = await api.post("/api/auth/login", {
       email,
       password
     });
-
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("user", JSON.stringify(response.data.user));
-
     return {
       success: true,
       token: response.data.token,
@@ -79,15 +72,9 @@ export function logoutUser() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 }
+
 // ADD MEAL
-export async function addMeal(
-  mealName,
-  description,
-  quantity,
-  location,
-  donorName,
-  expiryTime
-) {
+export async function addMeal(mealName, description, quantity, location, donorName, expiryTime) {
   try {
     const response = await api.post("/api/meals", {
       mealName,
@@ -95,16 +82,8 @@ export async function addMeal(
       quantity: Number(quantity),
       location,
       donorName,
-      // expiryTime comes from a <input type="datetime-local"> field as a
-      // plain string with no timezone info (e.g. "2026-06-17T14:30").
-      // Parsing it with `new Date()` here, in the browser, uses the
-      // donor's actual local timezone. Converting to ISO (UTC) before
-      // sending means the server stores the correct absolute instant
-      // regardless of which timezone the server itself runs in.
       expiryTime: new Date(expiryTime).toISOString()
-
     });
-
     return {
       success: true,
       message: response.data.message,
@@ -117,6 +96,7 @@ export async function addMeal(
     };
   }
 }
+
 // GET MEALS
 export async function getMeals() {
   try {
@@ -128,7 +108,7 @@ export async function getMeals() {
   }
 }
 
-//DELETE MEALS
+// DELETE MEAL
 export async function deleteMeal(mealId) {
   try {
     const response = await api.delete(`/api/meals/${mealId}`);
@@ -141,34 +121,23 @@ export async function deleteMeal(mealId) {
   }
 }
 
-
-
-
 // ADD FEEDBACK
 export async function addFeedback(name, rating, message) {
   try {
-    const response = await api.post("/api/feedback", {
-      name,
-      rating,
-      message,
-    });
-
+    const response = await api.post("/api/feedback", { name, rating, message });
     return {
       success: true,
-      message:
-        response.data.message ||
-        "Feedback submitted successfully",
+      message: response.data.message || "Feedback submitted successfully",
     };
   } catch (error) {
     return {
       success: false,
-      message:
-        error.response?.data?.message ||
-        "Could not submit feedback",
+      message: error.response?.data?.message || "Could not submit feedback",
     };
   }
 }
 
+// GET FEEDBACK
 export async function getFeedback() {
   try {
     const response = await api.get("/api/feedback");
@@ -179,6 +148,7 @@ export async function getFeedback() {
   }
 }
 
+// REQUEST MEAL
 export async function requestMeal(mealId) {
   try {
     const response = await api.post(`/api/requests/${mealId}`);
@@ -191,6 +161,7 @@ export async function requestMeal(mealId) {
   }
 }
 
+// GET MY MEAL REQUESTS
 export async function getMyMealRequests() {
   try {
     const response = await api.get("/api/requests");
@@ -204,12 +175,10 @@ export async function getMyMealRequests() {
   }
 }
 
+// UPDATE MEAL REQUEST
 export async function updateMealRequest(requestId, status) {
   try {
-    const response = await api.patch(`/api/requests/${requestId}/status`, {
-      status
-    });
-
+    const response = await api.patch(`/api/requests/${requestId}/status`, { status });
     return {
       success: true,
       message: response.data.message,
